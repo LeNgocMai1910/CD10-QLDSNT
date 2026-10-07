@@ -1,3 +1,75 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Thuoc
+{
+private:
+    string maThuoc;
+    string tenThuoc;
+    string hoatChat;
+    string donViTinh;
+    float giaBan;
+    int soLuong;
+    int ngay, thang, nam;
+public:
+    void nhap()
+    {
+        cout << "Nhap ma thuoc: ";
+        cin >> maThuoc;
+        cin.ignore();
+        cout << "Nhap ten thuoc: ";
+        getline(cin, tenThuoc);
+        cout << "Nhap hoat chat: ";
+        getline(cin, hoatChat);
+        cout << "Nhap don vi tinh: ";
+        getline(cin, donViTinh);
+        cout << "Nhap gia ban: ";
+        cin >> giaBan;
+        cout << "Nhap so luong ton kho: ";
+        cin >> soLuong;
+        cout << "Nhap han su dung:\n";
+        cout << "  Ngay: ";
+        cin >> ngay;
+        cout << "  Thang: ";
+        cin >> thang;
+        cout << "  Nam: ";
+        cin >> nam;
+    }
+    void xuat()
+    {
+        cout << maThuoc << "\t"
+             << tenThuoc << "\t"
+             << hoatChat << "\t"
+             << donViTinh << "\t"
+             << giaBan << "\t"
+             << soLuong << "\t"
+             << ngay << "/" << thang << "/" << nam << endl;
+    }
+    string getMaThuoc()
+    {
+        return maThuoc;
+    }
+    string getTenThuoc()
+    {
+        return tenThuoc;
+    }
+    int getNgay()
+    {
+        return ngay;
+    }
+    int getThang()
+    {
+        return thang;
+    }
+    int getNam()
+    {
+        return nam;
+    }
+};
+
+/// THEM THUOC ///
+
 void themThuoc(Thuoc ds[], int &n)
 {
     if(n >= 199)
@@ -46,3 +118,57 @@ void xoaThuoc(Thuoc ds[], int &n)
     n--;
     cout << "Xoa thuoc thanh cong!\n";
 }
+
+// MAIN //
+
+int main()
+{
+    Thuoc ds[200];
+    int n = 0;
+    int choice;
+    do
+    {
+        menu();
+        cin >> choice;
+        switch(choice)
+        {
+            case 1:
+                nhapDanhSach(ds, n);
+                break;
+            case 2:
+                xuatDanhSach(ds, n);
+                break;
+            case 3:
+                if(n == 0)
+                    cout << "Danh sach rong!\n";
+                else
+                    sapXep(ds, n);
+                break;
+            case 4:
+                if(n == 0)
+                    cout << "Danh sach rong!\n";
+                else
+                    timTheoMa(ds, n);
+                break;
+            case 5:
+                if(n == 0)
+                    cout << "Danh sach rong!\n";
+                else
+                    timTheoTen(ds, n);
+                break;
+            case 6:
+                themThuoc(ds, n);
+                break;
+            case 7:
+                xoaThuoc(ds, n);
+                break;
+            case 0:
+                cout << "Da thoat chuong trinh!\n";
+                break;
+            default:
+                cout << "Lua chon khong hop le!\n";
+        }
+    } while(choice != 0);
+    return 0;
+}
+
