@@ -1,0 +1,15 @@
+void nhapDanhSach(Thuoc ds[], int &n)
+{
+    do
+    {
+        cout << "Nhap so luong thuoc (0 < n < 200): ";
+        cin >> n;
+        if(n <= 0 || n >= 200)
+            cout << "So luong khong hop le! Nhap lai.\n";
+    } while(n <= 0 || n >= 200);
+    for(int i = 0; i < n; i++)
+    {
+        cout << "\nNhap thuoc thu " << i + 1 << "\n";
+        ds[i].nhap();
+    }
+}
