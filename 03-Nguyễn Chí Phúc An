@@ -1,0 +1,14 @@
+void xuatDanhSach(Thuoc ds[], int n)
+{
+    if(n == 0)
+    {
+        cout << "Danh sach rong!\n";
+        return;
+    }
+    cout << "\nDANH SACH THUOC \n";
+    for(int i = 0; i < n; i++)
+    {
+        cout << "\nThuoc thu " << i + 1 << ":\n";
+        ds[i].xuat();
+    }
+}
