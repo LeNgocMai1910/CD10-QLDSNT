@@ -1,0 +1,40 @@
+void timTheoMa(Thuoc ds[], int n)
+{
+    string ma;
+    bool timThay = false;
+    cout << "Nhap ma thuoc can tim: ";
+    cin >> ma;
+    for(int i = 0; i < n; i++)
+    {
+        if(ds[i].getMaThuoc() == ma)
+        {
+            cout << "\nTim thay thuoc:\n";
+            ds[i].xuat();
+            timThay = true;
+            break;
+        }
+    }
+    if(!timThay)
+        cout << "Khong tim thay thuoc co ma " << ma << endl;
+}
+
+void timTheoTen(Thuoc ds[], int n)
+{
+    string ten;
+    bool timThay = false;
+
+    cin.ignore();
+    cout << "Nhap ten thuoc can tim: ";
+    getline(cin, ten);
+    for(int i = 0; i < n; i++)
+    {
+        if(ds[i].getTenThuoc() == ten)
+        {
+            cout << "\nTim thay thuoc:\n";
+            ds[i].xuat();
+            timThay = true;
+        }
+    }
+    if(!timThay)
+        cout << "Khong tim thay thuoc co ten " << ten << endl;
+}
