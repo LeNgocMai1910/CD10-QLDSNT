@@ -1,0 +1,281 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Thuoc
+{
+private:
+    string maThuoc;
+    string tenThuoc;
+    string hoatChat;
+    string donViTinh;
+    float giaBan;
+    int soLuong;
+    int ngay, thang, nam;
+public:
+    void nhap()
+    {
+        cout << "Nhap ma thuoc: ";
+        cin >> maThuoc;
+        cin.ignore();
+        cout << "Nhap ten thuoc: ";
+        getline(cin, tenThuoc);
+        cout << "Nhap hoat chat: ";
+        getline(cin, hoatChat);
+        cout << "Nhap don vi tinh: ";
+        getline(cin, donViTinh);
+        cout << "Nhap gia ban: ";
+        cin >> giaBan;
+        cout << "Nhap so luong ton kho: ";
+        cin >> soLuong;
+        cout << "Nhap han su dung:\n";
+        cout << "  Ngay: ";
+        cin >> ngay;
+        cout << "  Thang: ";
+        cin >> thang;
+        cout << "  Nam: ";
+        cin >> nam;
+    }
+    void xuat()
+    {
+        cout << maThuoc << "\t"
+             << tenThuoc << "\t"
+             << hoatChat << "\t"
+             << donViTinh << "\t"
+             << giaBan << "\t"
+             << soLuong << "\t"
+             << ngay << "/" << thang << "/" << nam << endl;
+    }
+    string getMaThuoc()
+    {
+        return maThuoc;
+    }
+    string getTenThuoc()
+    {
+        return tenThuoc;
+    }
+    int getNgay()
+    {
+        return ngay;
+    }
+    int getThang()
+    {
+        return thang;
+    }
+    int getNam()
+    {
+        return nam;
+    }
+};
+
+void nhapDanhSach(Thuoc ds[], int &n)
+{
+    do
+    {
+        cout << "Nhap so luong thuoc (0 < n < 200): ";
+        cin >> n;
+        if(n <= 0 || n >= 200)
+            cout << "So luong khong hop le! Nhap lai.\n";
+    } while(n <= 0 || n >= 200);
+    for(int i = 0; i < n; i++)
+    {
+        cout << "\nNhap thuoc thu " << i + 1 << "\n";
+        ds[i].nhap();
+    }
+}
+
+void xuatDanhSach(Thuoc ds[], int n)
+{
+    if(n == 0)
+    {
+        cout << "Danh sach rong!\n";
+        return;
+    }
+    cout << "\nDANH SACH THUOC \n";
+    for(int i = 0; i < n; i++)
+    {
+        cout << "\nThuoc thu " << i + 1 << ":\n";
+        ds[i].xuat();
+    }
+}
+
+bool lonHonHanSuDung(Thuoc a, Thuoc b)
+{
+    if(a.getNam() != b.getNam())
+        return a.getNam() > b.getNam();
+
+    if(a.getThang() != b.getThang())
+        return a.getThang() > b.getThang();
+
+    return a.getNgay() > b.getNgay();
+}
+void sapXep(Thuoc ds[], int n)
+{
+    for(int i = 0; i < n - 1; i++)
+    {
+        for(int j = i + 1; j < n; j++)
+        {
+            if(lonHonHanSuDung(ds[i], ds[j]))
+            {
+                Thuoc temp = ds[i];
+                ds[i] = ds[j];
+                ds[j] = temp;
+            }
+        }
+    }
+    cout << "Da sap xep danh sach theo han su dung tang dan!\n";
+}
+void timTheoMa(Thuoc ds[], int n)
+{
+    string ma;
+    bool timThay = false;
+    cout << "Nhap ma thuoc can tim: ";
+    cin >> ma;
+    for(int i = 0; i < n; i++)
+    {
+        if(ds[i].getMaThuoc() == ma)
+        {
+            cout << "\nTim thay thuoc:\n";
+            ds[i].xuat();
+            timThay = true;
+            break;
+        }
+    }
+    if(!timThay)
+        cout << "Khong tim thay thuoc co ma " << ma << endl;
+}
+
+void timTheoTen(Thuoc ds[], int n)
+{
+    string ten;
+    bool timThay = false;
+
+    cin.ignore();
+    cout << "Nhap ten thuoc can tim: ";
+    getline(cin, ten);
+    for(int i = 0; i < n; i++)
+    {
+        if(ds[i].getTenThuoc() == ten)
+        {
+            cout << "\nTim thay thuoc:\n";
+            ds[i].xuat();
+            timThay = true;
+        }
+    }
+    if(!timThay)
+        cout << "Khong tim thay thuoc co ten " << ten << endl;
+}
+
+void themThuoc(Thuoc ds[], int &n)
+{
+    if(n >= 199)
+    {
+        cout << "Danh sach da day, khong the them!\n";
+        return;
+    }
+    int k;
+    cout << "Nhap vi tri muon them (0 -> " << n << "): ";
+    cin >> k;
+    if(k < 0 || k > n)
+    {
+        cout << "Vi tri khong hop le!\n";
+        return;
+    }
+
+    for(int i = n; i > k; i--)
+    {
+        ds[i] = ds[i - 1];
+    }
+    cout << "\nNhap thong tin thuoc moi:\n";
+    ds[k].nhap();
+    n++;
+    cout << "Them thuoc thanh cong!\n";
+}
+
+void xoaThuoc(Thuoc ds[], int &n)
+{
+    if(n == 0)
+    {
+        cout << "Danh sach rong, khong the xoa!\n";
+        return;
+    }
+    int k;
+    cout << "Nhap vi tri muon xoa (0 -> " << n - 1 << "): ";
+    cin >> k;
+    if(k < 0 || k >= n)
+    {
+        cout << "Vi tri khong hop le!\n";
+        return;
+    }
+    for(int i = k; i < n - 1; i++)
+    {
+        ds[i] = ds[i + 1];
+    }
+    n--;
+    cout << "Xoa thuoc thanh cong!\n";
+}
+
+void menu()
+{
+    cout << "          QUAN LY THUOC\n";
+    cout << "1. Nhap danh sach thuoc\n";
+    cout << "2. Xuat danh sach thuoc\n";
+    cout << "3. Sap xep theo han su dung\n";
+    cout << "4. Tim kiem theo ma thuoc\n";
+    cout << "5. Tim kiem theo ten thuoc\n";
+    cout << "6. Them thuoc\n";
+    cout << "7. Xoa thuoc\n";
+    cout << "0. Thoat\n";
+    cout << "Nhap lua chon: ";
+}
+
+int main()
+{
+    Thuoc ds[200];
+    int n = 0;
+    int choice;
+    do
+    {
+        menu();
+        cin >> choice;
+        switch(choice)
+        {
+            case 1:
+                nhapDanhSach(ds, n);
+                break;
+            case 2:
+                xuatDanhSach(ds, n);
+                break;
+            case 3:
+                if(n == 0)
+                    cout << "Danh sach rong!\n";
+                else
+                    sapXep(ds, n);
+                break;
+            case 4:
+                if(n == 0)
+                    cout << "Danh sach rong!\n";
+                else
+                    timTheoMa(ds, n);
+                break;
+            case 5:
+                if(n == 0)
+                    cout << "Danh sach rong!\n";
+                else
+                    timTheoTen(ds, n);
+                break;
+            case 6:
+                themThuoc(ds, n);
+                break;
+            case 7:
+                xoaThuoc(ds, n);
+                break;
+            case 0:
+                cout << "Da thoat chuong trinh!\n";
+                break;
+            default:
+                cout << "Lua chon khong hop le!\n";
+        }
+    } while(choice != 0);
+    return 0;
+}
